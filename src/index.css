@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Project Mango — Global Styles
+ * Most styling is handled through Tailwind utility classes.
+ * Add component-level or base overrides below as needed.
+ */
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900;
+  }
+}
+
+/* Custom checkbox styling to match mango-blue brand */
+@layer components {
+  input[type='checkbox']:checked {
+    background-color: #2563eb;
+    border-color: #2563eb;
+  }
+}
