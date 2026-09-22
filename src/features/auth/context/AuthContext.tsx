@@ -1,5 +1,18 @@
-import { createContext, useContext, useState, useCallback, type ReactNode } from 'react';
-import type { AuthState, User, UserRole, SignInPayload, SignUpPayload, OAuthProvider } from '@/types/auth';
+import {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  type ReactNode,
+} from "react";
+import type {
+  AuthState,
+  User,
+  UserRole,
+  SignInPayload,
+  SignUpPayload,
+  OAuthProvider,
+} from "@/types/auth";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // AuthContext — Application-Wide Authentication State
@@ -14,7 +27,7 @@ import type { AuthState, User, UserRole, SignInPayload, SignUpPayload, OAuthProv
 //                  └── useAuth()      (consumed by components)
 //                  └── useClerkAuth() (facade in hooks/useClerkAuth.ts)
 //
-// CLERK INTEGRATION CHECKLIST (for backend teammate):
+// CLERK INTEGRATION CHECKLIST (for backend:
 //
 //   1. npm install @clerk/clerk-react
 //
@@ -55,20 +68,20 @@ import type { AuthState, User, UserRole, SignInPayload, SignUpPayload, OAuthProv
 
 const MOCK_USERS: Record<string, User> = {
   admin: {
-    id: 'usr_admin_001',
-    fullName: 'Alex Rivera',
-    email: 'alex.rivera@company.com',
-    role: 'admin',
+    id: "usr_admin_001",
+    fullName: "Alex Rivera",
+    email: "alex.rivera@company.com",
+    role: "admin",
     avatarUrl: null,
-    team: 'Engineering',
+    team: "Engineering",
   },
   member: {
-    id: 'usr_member_001',
-    fullName: 'Jamie Chen',
-    email: 'jamie.chen@company.com',
-    role: 'member',
+    id: "usr_member_001",
+    fullName: "Jamie Chen",
+    email: "jamie.chen@company.com",
+    role: "member",
     avatarUrl: null,
-    team: 'Design',
+    team: "Design",
   },
 };
 
@@ -109,7 +122,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         (u) => u.email === payload.email,
       );
       const resolvedUser = matchedUser ?? MOCK_USERS.admin!;
-      setAuthState({ user: resolvedUser, isAuthenticated: true, isLoading: false });
+      setAuthState({
+        user: resolvedUser,
+        isAuthenticated: true,
+        isLoading: false,
+      });
     } catch {
       setAuthState((prev) => ({ ...prev, isLoading: false }));
     }
@@ -133,11 +150,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       // Mock: create a dynamic user from the sign-up form fields
       const newUser: User = {
         id: `usr_${Date.now()}`,
-        fullName: payload.fullName || 'New User',
+        fullName: payload.fullName || "New User",
         email: payload.email,
-        role: 'member', // new sign-ups default to 'member'
+        role: "member", // new sign-ups default to 'member'
         avatarUrl: null,
-        team: payload.team || 'Unassigned',
+        team: payload.team || "Unassigned",
       };
       setAuthState({ user: newUser, isAuthenticated: true, isLoading: false });
     } catch {
@@ -157,7 +174,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setAuthState((prev) => ({ ...prev, isLoading: true }));
     console.log(`[AuthContext] OAuth redirect stub for provider: ${provider}`);
     await new Promise((r) => setTimeout(r, 600)); // simulate redirect
-    setAuthState({ user: MOCK_USERS.admin!, isAuthenticated: true, isLoading: false });
+    setAuthState({
+      user: MOCK_USERS.admin!,
+      isAuthenticated: true,
+      isLoading: false,
+    });
   }, []);
 
   // ── signOut ─────────────────────────────────────────────────────────────
@@ -200,7 +221,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 export function useAuth(): AuthContextValue {
   const ctx = useContext(AuthContext);
   if (!ctx) {
-    throw new Error('useAuth must be used within an <AuthProvider>');
+    throw new Error("useAuth must be used within an <AuthProvider>");
   }
   return ctx;
 }
