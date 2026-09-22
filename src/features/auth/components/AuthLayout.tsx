@@ -25,43 +25,43 @@ export function AuthLayout({ children }: AuthLayoutProps) {
                 SPRINT 1 &bull; ACTIVE
               </span>
             </div>
+            {/* Lock icon */}
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-gray-200 text-gray-400">
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              </svg>
+            </div>
           </div>
-          {/* Lock icon */}
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-gray-200 text-gray-400">
-            <svg
-              className="h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-            </svg>
+
+          {/*
+           * Brand logo — imported as a Vite static asset.
+           * Vite appends a content-hash to the filename at build time
+           * (e.g. qw-logo-Ab3xZ.png), which guarantees cache-busting
+           * whenever the file changes. No manual query params needed.
+           *
+           * To swap the logo: replace src/assets/qw-logo.png and rebuild.
+           */}
+          <div className="mb-5 flex justify-center">
+            <img
+              src={qwLogo}
+              alt="QuickWorks — Project Mango"
+              className="max-h-14 w-auto max-w-[220px] object-contain"
+            />
           </div>
+
+          {children}
         </div>
 
-        {/*
-         * Brand logo — imported as a Vite static asset.
-         * Vite appends a content-hash to the filename at build time
-         * (e.g. qw-logo-Ab3xZ.png), which guarantees cache-busting
-         * whenever the file changes. No manual query params needed.
-         *
-         * To swap the logo: replace src/assets/qw-logo.png and rebuild.
-         */}
-        <div className="mb-5 flex justify-center">
-          <img
-            src={qwLogo}
-            alt="QuickWorks — Project Mango"
-            className="max-h-14 w-auto max-w-[220px] object-contain"
-          />
-        </div>
-
-        {children}
+        {/* Bottom ticker — outside the card */}
+        <BottomTicker />
       </div>
-
-      {/* Bottom ticker — outside the card */}
-      <BottomTicker />
     </div>
   );
 }
